@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Kraft OS — Trading System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/tracker.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo">K</div>
+    <div>
+      <div class="sidebar-name">KRAFT OS</div>
+      <div class="sidebar-sub">Trading System</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-page="dashboard" onclick="goPage('dashboard',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a href="#" class="nav-item" data-page="journal" onclick="goPage('journal',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Trade Journal
+    </a>
+    <a href="#" class="nav-item" data-page="accounts" onclick="goPage('accounts',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      Accounts
+    </a>
+    <a href="#" class="nav-item" data-page="content" onclick="goPage('content',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      Kraft Blueprints
+    </a>
+    <a href="#" class="nav-item" data-page="ideas" onclick="goPage('ideas',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Content Ideas
+    </a>
+    <a href="#" class="nav-item" data-page="rules" onclick="goPage('rules',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Trading Rules
+    </a>
+    <a href="#" class="nav-item" data-page="notes" onclick="goPage('notes',this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-4"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4z"/></svg>
+      Notes & Journal
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-day" id="sidebar-day">Challenge Day 1</div>
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-fill" id="sidebar-progress-fill"></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MOBILE TOPBAR -->
+<div class="topbar">
+  <button class="hamburger-btn" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="topbar-brand">KRAFT OS</div>
+  <div class="topbar-day" id="topbar-day">Day 1</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="main">
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Only1Kraft</div>
+        <h1 class="page-title">Dashboard</h1>
+      </div>
+    </div>
+
+    <!-- Account stats -->
+    <div class="stats-grid" id="account-stats"></div>
+
+    <!-- Quick stats -->
+    <div class="section-title">This week</div>
+    <div class="progress-cards" id="week-stats"></div>
+
+    <!-- Recent activity -->
+    <div class="section-title" style="margin-top:32px;">Recent activity</div>
+    <div id="recent-activity"></div>
+  </div>
+
+  <!-- TRADE JOURNAL -->
+  <div class="page" id="page-journal">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Structure | Direction | Execution</div>
+        <h1 class="page-title">Trade Journal</h1>
+      </div>
+      <button class="add-trade-btn" onclick="addTrade()">+ Log Trade</button>
+    </div>
+
+    <div class="journal-table-wrap">
+      <div class="journal-header-row">
+        <div>Date</div>
+        <div>Pair</div>
+        <div>Setup / Notes</div>
+        <div>RR</div>
+        <div>Result</div>
+        <div></div>
+      </div>
+      <div id="journal-rows"></div>
+    </div>
+
+    <div class="section-title" style="margin-top:32px;">Weekly reflection</div>
+    <div class="reflection-card">
+      <textarea class="reflection-input" id="weekly-reflection" placeholder="What worked this week? What didn't? What's the one adjustment for next week?" oninput="saveReflection()"></textarea>
+    </div>
+  </div>
+
+  <!-- ACCOUNTS -->
+  <div class="page" id="page-accounts">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Capital</div>
+        <h1 class="page-title">Accounts</h1>
+      </div>
+    </div>
+
+    <div class="account-detail-grid">
+      <div class="account-detail-card">
+        <div class="account-detail-label">$5K Prop Firm Challenge</div>
+        <div class="prop-row">
+          <span class="prop-label">Stage</span>
+          <input type="text" class="prop-input" id="prop-stage" placeholder="Stage 1 — $5K Account" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Starting balance</span>
+          <input type="text" class="prop-input" id="prop-start" placeholder="$5,000" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Current balance</span>
+          <input type="text" class="prop-input" id="prop-current" placeholder="$5,000" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Profit target</span>
+          <input type="text" class="prop-input" id="prop-target" placeholder="$300" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Max drawdown</span>
+          <input type="text" class="prop-input" id="prop-dd" placeholder="$300 (6%)" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Trades this week</span>
+          <input type="text" class="prop-input" id="prop-trades" placeholder="0 / 3" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Status</span>
+          <select class="prop-input" id="prop-status" onchange="saveAccounts()">
+            <option value="active">Active</option>
+            <option value="passed">Passed ✓</option>
+            <option value="failed">Failed</option>
+            <option value="scaled">Scaled to next stage</option>
+          </select>
+        </div>
+        <button class="prop-reset-btn" onclick="resetProp()">Reset challenge</button>
+      </div>
+
+      <div class="account-detail-card">
+        <div class="account-detail-label">₦200K Funded Account</div>
+        <div class="prop-row">
+          <span class="prop-label">Starting balance</span>
+          <input type="text" class="prop-input" id="naira-start" placeholder="₦200,000" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Current balance</span>
+          <input type="text" class="prop-input" id="naira-current" placeholder="₦200,000" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">This month P&L</span>
+          <input type="text" class="prop-input" id="naira-pnl" placeholder="+₦0" oninput="saveAccounts()"/>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Purpose</span>
+          <input type="text" class="prop-input" id="naira-purpose" placeholder="Personal / expenses" oninput="saveAccounts()"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:32px;">Follower growth</div>
+    <div class="follower-card">
+      <div class="follower-row">
+        <span class="follower-label">Instagram (@only1_kraft)</span>
+        <input type="number" class="follower-input" id="ig-followers" placeholder="31" oninput="saveFollowers()"/>
+      </div>
+      <div class="follower-row">
+        <span class="follower-label">Telegram</span>
+        <input type="number" class="follower-input" id="tg-followers" placeholder="38" oninput="saveFollowers()"/>
+      </div>
+      <div class="follower-row">
+        <span class="follower-label">YouTube (Kraft Blueprints)</span>
+        <input type="number" class="follower-input" id="yt-followers" placeholder="22" oninput="saveFollowers()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- KRAFT BLUEPRINTS CONTENT -->
+  <div class="page" id="page-content">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">YouTube Course</div>
+        <h1 class="page-title">Kraft Blueprints</h1>
+      </div>
+      <button class="add-trade-btn" onclick="addEpisode()">+ Add Episode</button>
+    </div>
+
+    <div id="episode-list"></div>
+
+    <div class="section-title" style="margin-top:32px;">Platform roles</div>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-name">YouTube — Kraft Blueprints</div>
+        <div class="platform-role">Teaches. Builds authority. Weekly episodes breaking down concepts.</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Telegram</div>
+        <div class="platform-role">The real community. Daily analysis, direct access, where depth lives.</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">Instagram (@only1_kraft)</div>
+        <div class="platform-role">Clean results only. Charts, figures, polished. No journey posts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IDEAS PAGE -->
+  <div class="page" id="page-ideas">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Content bank</div>
+        <h1 class="page-title">30 Trading Ideas</h1>
+      </div>
+      <div class="ideas-stats">
+        <span id="ideas-remaining">30 remaining</span>
+      </div>
+    </div>
+    <div class="ideas-filter" id="ideas-filter"></div>
+    <div class="ideas-list" id="ideas-list"></div>
+  </div>
+
+  <!-- RULES PAGE -->
+  <div class="page" id="page-rules">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">System protection</div>
+        <h1 class="page-title">Trading Rules</h1>
+      </div>
+    </div>
+    <div class="rules-list" id="rules-list"></div>
+  </div>
+
+  <!-- NOTES & JOURNAL PAGE -->
+  <div class="page" id="page-notes">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Thoughts & Reflections</div>
+        <h1 class="page-title">Notes & Journal</h1>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="notes-date" id="notes-today-label"></span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="section-title">Scratchpad</div>
+        <div class="notes-scratch-wrap">
+          <textarea class="notes-scratch" id="notes-scratch" placeholder="Dump your thoughts here — setups you're watching, ideas, reminders. Auto-saves as you type." oninput="saveScratch()"></textarea>
+        </div>
+
+        <div class="section-title" style="margin-top:24px;">Today's journal entry</div>
+        <div class="notes-journal-card">
+          <div class="notes-journal-prompt">
+            <div class="notes-prompt-label">What did I do today?</div>
+            <textarea class="notes-journal-input" id="journal-q1" placeholder="Analysis done, trades taken, content shipped..." oninput="saveJournalEntry()"></textarea>
+          </div>
+          <div class="notes-journal-prompt">
+            <div class="notes-prompt-label">What worked and what didn't?</div>
+            <textarea class="notes-journal-input" id="journal-q2" placeholder="Wins, lessons, what to avoid tomorrow..." oninput="saveJournalEntry()"></textarea>
+          </div>
+          <div class="notes-journal-prompt" style="border-bottom:none;">
+            <div class="notes-prompt-label">One thing I'm doing first tomorrow</div>
+            <textarea class="notes-journal-input" id="journal-q3" placeholder="The single most important action for tomorrow morning..." oninput="saveJournalEntry()" style="min-height:60px;"></textarea>
+          </div>
+          <div style="padding:12px 16px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+            <span class="notes-save-status" id="notes-save-status">Auto-saves as you type</span>
+            <button class="notes-save-btn" onclick="saveJournalEntry(true)">Save entry</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Past entries</div>
+        <div id="notes-entries-log"></div>
+        <div id="notes-empty" style="display:none;">
+          <div class="notes-empty-state">
+            <div style="font-size:28px;margin-bottom:12px;opacity:0.3;">·</div>
+            <div style="font-size:13px;color:var(--text3);">No entries yet. Write your first one today.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="js/tracker.js"></script>
+</body>
+</html>
